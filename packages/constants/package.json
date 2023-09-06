@@ -1,0 +1,6 @@
+{
+  "name": "@zx-ui/constants",
+  "private": true,
+  "license": "MIT",
+  "main": "index.ts"
+}

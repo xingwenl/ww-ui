@@ -61,5 +61,21 @@
     "vite": "^4.4.5",
     "vite-plugin-dts": "^3.5.3",
     "vue-tsc": "^1.8.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./.cz-config.cjs"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{html,css,less,scss,md,ts,vue,js,json,md}": [
+      "prettier --write"
+    ]
   }
 }

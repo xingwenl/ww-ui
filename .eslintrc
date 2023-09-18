@@ -23,10 +23,20 @@
   },
   "plugins": ["vue", "@typescript-eslint"],
   "rules": {
+    // vue
+    "vue/no-v-html": "off",
     "vue/no-deprecated-slot-attribute": "off",
     "vue/comment-directive": "off",
     "vue/multi-word-component-names": "off",
-    "@typescript-eslint/no-unused-vars": "error",
+    "vue/prefer-import-from-vue": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_",
+      "args": "after-used",
+      "vars": "local",
+      "caughtErrors": "none"
+    }],
+    "no-useless-escape": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",

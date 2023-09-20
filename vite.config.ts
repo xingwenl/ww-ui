@@ -1,29 +1,46 @@
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import dts from "vite-plugin-dts";
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import DefineOptions from "unplugin-vue-define-options/vite";
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import dts from 'vite-plugin-dts';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import DefineOptions from 'unplugin-vue-define-options/vite';
+import { resolve } from 'path';
+
 // https://vitejs.dev/config/
+function pathResolve(dir: string) {
+  return resolve(process.cwd(), '.', dir);
+}
 export default defineConfig({
   resolve: {
-    alias: {
-      "ww-ui": "/packages"
-    }
+    alias: [
+      {
+        find: /\ww-ui\//,
+        replacement: pathResolve('packages') + '/'
+      },
+      {
+        find: /\/@\//,
+        replacement: pathResolve('src') + '/'
+      },
+      {
+        find: /\/#\//,
+        replacement: pathResolve('types') + '/'
+      }
+    ]
   },
   plugins: [
+    // 生成ts
     dts({
       // entryRoot: './packages',
-      outDir: "lib",
+      outDir: 'lib',
       insertTypesEntry: true,
       staticImport: true,
-      tsconfigPath: "./tsconfig.json",
+      tsconfigPath: './tsconfig.json'
     }),
     vue(),
     vueJsx(),
     DefineOptions()
   ],
   build: {
-    outDir: "es",
+    outDir: 'es',
     minify: false,
     // terserOptions: { // 打包代码时移除console、debugger、注释
     //   compress: {
@@ -36,43 +53,43 @@ export default defineConfig({
     // },
     rollupOptions: {
       //忽略打包vue文件
-      external: ["vue", "element-plus"],
-      input: ["packages/ww/index.ts"],
-      preserveEntrySignatures: "strict",
+      external: ['vue', 'element-plus'],
+      input: ['packages/ww/index.ts'],
+      preserveEntrySignatures: 'strict',
       output: [
         {
           globals: {
-            vue: "Vue",
+            vue: 'Vue'
           },
-          dir: "lib",
-          format: "es",
+          dir: 'lib',
+          format: 'es',
           //打包后文件名
-          entryFileNames: "[name].mjs",
+          entryFileNames: '[name].mjs',
           //让打包目录和我们目录对应
           preserveModules: true,
           preserveModulesRoot: 'packages',
-          exports: "named",
+          exports: 'named'
         },
         {
           globals: {
-            vue: "Vue",
+            vue: 'Vue'
           },
-          dir: "lib",
-          format: "cjs",
+          dir: 'lib',
+          format: 'cjs',
           //打包后文件名
-          entryFileNames: "[name].js",
+          entryFileNames: '[name].js',
           //让打包目录和我们目录对应
           preserveModules: true,
           preserveModulesRoot: 'packages',
-          exports: "named",
-        },
-      ],
+          exports: 'named'
+        }
+      ]
     },
     lib: {
-      entry: "./packages/ww/index.ts",
-      name: "ww",
-      fileName: (fomart) => `ww-ui.${fomart}.js`,
-    //   // formats: ["es", "umd", "cjs"],
-    },
-  },
+      entry: './packages/ww/index.ts',
+      name: 'ww',
+      fileName: (fomart) => `ww-ui.${fomart}.js`
+      //   // formats: ["es", "umd", "cjs"],
+    }
+  }
 });

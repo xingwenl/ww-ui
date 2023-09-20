@@ -1,5 +1,5 @@
 {
-  "name": "@zx-ui/constants",
+  "name": "@ww-ui/constants",
   "private": true,
   "license": "MIT",
   "main": "index.ts"

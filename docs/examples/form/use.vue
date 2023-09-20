@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WForm, useForm } from 'ww-ui/ww';
+import { WForm, useForm } from 'ww-laas';
 const [register, { resetFields }] = useForm({
   schemas: [
     {

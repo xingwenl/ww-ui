@@ -1,13 +1,14 @@
-import { DynamicProps } from 'types/utils';
-import { FormActionType, FormProps } from '../types/form';
+import { DynamicProps } from '/#/utils';
+import { FormActionType, FormProps, UseFormReturnType } from '../types/form';
 import { nextTick, onUnmounted, ref, unref, watch } from 'vue';
 import { error, getDynamicProps } from 'ww-ui/utils';
 
 export declare type Props = Partial<DynamicProps<FormProps>>;
 
-export function useForm(props?: Props) {
+export function useForm(props?: Props): UseFormReturnType {
   const formRef = ref<Nullable<FormActionType>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
+  console.log('props', props);
 
   async function getForm() {
     const form = unref(formRef);
@@ -31,6 +32,7 @@ export function useForm(props?: Props) {
     watch(
       () => props,
       () => {
+        console.log('props', props);
         props && instance.setProps(getDynamicProps(props));
       },
       {

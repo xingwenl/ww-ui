@@ -44,3 +44,7 @@ export interface FormActionType {
   getFormElRef: () => Promise<Ref<FormInstance>>;
   setProps: (formProps: Partial<FormProps>) => Promise<void>;
 }
+
+export type RegisterFn = (formInstance: FormActionType) => void;
+
+export type UseFormReturnType = [RegisterFn, FormActionType];

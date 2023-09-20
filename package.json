@@ -1,7 +1,7 @@
 {
-  "name": "ww-ui",
+  "name": "ww-laas",
   "description": "前端基础设施",
-  "version": "0.0.1",
+  "version": "0.0.",
   "type": "module",
   "main": "lib/ww/index.js",
   "module": "lib/ww/index.mjs",
@@ -27,12 +27,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
+    "docs:dev": "pnpm run -C docs dev",
+    "docs:build": "pnpm run -C docs build",
+    "docs:serve": "pnpm run -C docs serve",
     "preview": "vite preview",
     "prepare": "husky install",
     "tsc": "vue-tsc --noEmit",
     "lintStaged": "lint-staged"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "@vue/shared": "^3.3.4",
     "@vueuse/core": "9.13.0",
     "element-plus": "^2.3.12",

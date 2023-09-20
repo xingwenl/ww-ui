@@ -19,7 +19,7 @@
   </el-form>
 </template>
 <script lang="ts" setup>
-import { computed, reactive, watch, ref, useAttrs, unref } from 'vue';
+import { computed, reactive, watch, ref, useAttrs, unref, onMounted } from 'vue';
 import type { Ref } from 'vue';
 import { ElForm, ElRow } from 'element-plus';
 import type { FormInstance } from 'element-plus';
@@ -32,11 +32,12 @@ import { dateUtil, deepMerge } from 'ww-ui/utils';
 
 const props = withDefaults(defineProps<FormProps>(), {
   gutter: 16,
+  schemas: () => [],
   transformDateFunc: (date: any) => {
     return date?.format?.('YYYY-MM-DD HH:mm:ss') ?? date;
   }
 });
-const emit = defineEmits(['update:model', 'reset']);
+const emit = defineEmits(['update:model', 'reset', 'register']);
 const formModel = reactive<Record<string, any>>({});
 const formElRef = ref<FormInstance>();
 const schemaRef = ref<FormSchema[] | null>(null);
@@ -129,8 +130,7 @@ async function setProps(formProps: Partial<FormProps>): Promise<void> {
 function getFormElRef() {
   return formElRef;
 }
-
-defineExpose({
+const formActionType = {
   setFieldsValue,
   getFieldsValue,
   updateSchema,
@@ -138,5 +138,12 @@ defineExpose({
   resetFields,
   getFormElRef,
   setProps
+};
+
+onMounted(() => {
+  initDefault();
+  emit('register', formActionType);
 });
+
+defineExpose(formActionType);
 </script>
